@@ -8,11 +8,16 @@ namespace Domain.Models
 {
     public class Item
     {
+        [Key]
         public int Id { get; set; }
 
+        [StringLength(100)]                     //constraints
+        [Required]
         public string Name { get; set; }
 
+        [ForeignKey("Category")]                //need to apply a navigational property's name to a foreign key
         public int CategoryId { get; set; }
+        public Category Category { get; set; }  //a navigational property
 
         public double Price { get; set; }
 
