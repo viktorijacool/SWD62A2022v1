@@ -42,5 +42,18 @@ namespace WebApp.Controllers
             }
             return View();
         }
+
+        public IActionResult List()
+        {
+            var list = itemsService.GetItems();
+            return View(list);
+        }
+
+        //Details layout
+        public IActionResult Details(int id)
+        {
+            var myItem = itemsService.GetItem(id);
+            return View(myItem);
+        }
     }
 }

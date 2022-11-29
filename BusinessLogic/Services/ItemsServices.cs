@@ -67,5 +67,22 @@ namespace BusinessLogic.Services
                        };
             return list;
         }
+
+        //Filter 
+        public IQueryable<ItemViewModel> Search(string keyword)
+        {
+            return GetItems().Where(x => x.Name.Contains(keyword));
+        }
+
+        public IQueryable<ItemViewModel> Search(string keyword, double minPrice, double maxPrice)
+        {
+            return Search(keyword).Where(x=> x.Price < minPrice && x.Price > maxPrice);
+        }
+
+        
+        public ItemViewModel GetItem(int id)
+        {
+            return GetItems().SingleOrDefault(x => x.Id == id);
+        }
     }
 }
