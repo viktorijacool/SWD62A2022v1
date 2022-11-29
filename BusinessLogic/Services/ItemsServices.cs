@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ViewModels;
 using DataAccess.Repositories;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,27 @@ namespace BusinessLogic.Services
         public void Checkout()
         {
 
+        }
+
+        //it is not recommended that you use the Domain Models as a return type
+        //in other words, do not use the classes that model the database to transfer data into the presentation layer
+
+        //Item contains all necessary data from the database
+        //ItemViewModel is used to display a certain info from the database
+        public IQueryable<ItemViewModel> GetItems()
+        {
+            var list = from i in ir.GetItems()
+                       select new ItemViewModel()
+                       {
+                           Id = i.Id,
+                           Category = i.Category.Title,
+                           Description = i.Description,
+                           Name = i.Name,
+                           PhotoPath = i.PhotoPath,
+                           Price = i.Price,
+                           Stock = i.Stock
+                       };
+            return list;
         }
     }
 }
